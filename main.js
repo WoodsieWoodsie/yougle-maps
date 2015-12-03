@@ -25,7 +25,8 @@ function find(){
     poly = new google.maps.Polyline({
       strokeColor: '#000000',
       strokeOpacity: 1.0,
-      strokeWeight: 3
+      strokeWeight: 3,
+      editable: true
     });
     poly.setMap(map);
     map.addListener('click', addLatLng);

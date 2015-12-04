@@ -2,28 +2,27 @@ doctype html
 html(lang='en')
   head
     meta(charset='UTF-8')
-    title Yougle Directions
+    title Yougle Map
     link(rel="stylesheet", href="bower_components/bootstrap/dist/css/bootstrap.min.css")
     link(rel='stylesheet', href='styles.css')
   body
     div.container
       h1 Yougle Maps
-      label(for='address') Address: 
+      h4 Discover and save cool places that other people should know about!
+      h6 See saved locations within a one-mile radius of your current location. Be sure to allow location services for the app to work.
+      label(for='address') Location: choose somewhere specific, like a certain coffee shop, not general, like an entire city.
       br
       input.addressInput(type='text')
       button.find Find it!
       hr
 
       div.locationNameForm
-        label(for='loactionNameInput') Name and save this location: 
+        label(for='loactionNameInput') Name and save this location: be descriptive but brief. 
         br
         input.locationNameInput(type='text')
         button.saveLocation Save it!
         hr
-
-
-
-
+          
     #map
     
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCacoNA7dEzPT5P9B4W08Yvuieft3j6FwE')

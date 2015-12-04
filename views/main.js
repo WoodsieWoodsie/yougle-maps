@@ -4,6 +4,8 @@ $(document).ready(init);
 function init(){
   load();
   $('.find').click(find);
+  $('.container').on('click', '.saveLocation', saveLocation);
+
 }
 
 
@@ -14,22 +16,22 @@ var geoFire = new GeoFire(firebaseRef);
 var map;
 var poly;
 var coords;
+var userLocation;
 
 function load(){
   $('#map').empty();
 
   navigator.geolocation.getCurrentPosition(function(position) {
-    var location = {
+    userLocation = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
     };
-      
     map = new google.maps.Map(document.getElementById('map'), {
-      center: location,
+      center: userLocation,
       zoom: 15
     });
     var marker = new google.maps.Marker({
-      position: location,
+      position: userLocation,
       map: map,
       title: 'Your Location'
     });
@@ -37,8 +39,22 @@ function load(){
       $('.locationNameForm').fadeIn(900);
     }, 3000);
 
-    $('.saveLocation').click(saveLocation(location));
+    // google.maps.event.addListener(map, 'click', function(event) {
+    //   userLocation = event.latLng
+    //   placeMarker(userLocation, marker);
+    // });
 
+    // function placeMarker(userLocation, marker) {
+    //   console.log(userLocation);
+    //   marker.setMap(null);
+    //   marker = null;
+
+    //   marker = new google.maps.Marker({
+    //     position: userLocation, 
+    //     map: map
+    //   });
+    //   $('.locationNameForm').fadeOut(500).fadeIn(500);
+    // };
   });
 }
 
@@ -71,8 +87,21 @@ function find(){
   }
 }
 
-function saveLocation(location){
-  console.log("SAVE LOCATION", location);
+function saveLocation(){
+  if ($('.locationNameInput').val()){
+    console.log("SAVE LOCATION", userLocation);
+    var key = $('.locationNameInput').val();
+    console.log("KEY", key);
+
+    geoFire.set(key, [userLocation.lat, userLocation.lng]).then(function() {
+      console.log("Provided key has been added to GeoFire");
+    }, function(error) {
+      console.log("Error: " + error);
+    });
+
+
+  }
+  
 }
 
 

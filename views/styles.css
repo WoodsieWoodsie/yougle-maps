@@ -9,11 +9,15 @@ html, body {
   height: 80%;
 }
 
-.addressInput {
+.addressInput, .locationNameInput {
   width: 200px;
   margin-right: 20px;
 }
 
 .totalDistance {
+  display: none;
+}
+
+.locationNameForm {
   display: none;
 }

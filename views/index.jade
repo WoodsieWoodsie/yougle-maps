@@ -13,10 +13,23 @@ html(lang='en')
       input.addressInput(type='text')
       button.find Find it!
       hr
+
+      div.locationNameForm
+        label(for='loactionNameInput') Name and save this location: 
+        br
+        input.locationNameInput(type='text')
+        button.saveLocation Save it!
+        hr
+
+
+
+
     #map
-    #right-panel
-      p.totalDistance Total Distance: 
-        span#total
+    
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCacoNA7dEzPT5P9B4W08Yvuieft3j6FwE')
+    script(src="https://cdn.jsdelivr.net/rsvp/3.0.6/rsvp.min.js")
+    script(src="https://cdn.firebase.com/js/client/2.2.5/firebase.js")
+    script(src="https://cdn.firebase.com/libs/geofire/3.2.3/geofire.min.js")
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src="bower_components/bootstrap/dist/js/bootstrap.min.js")
     script(src='main.js')

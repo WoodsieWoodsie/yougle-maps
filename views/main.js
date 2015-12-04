@@ -1,6 +1,16 @@
 'use strict';
-load();
-$('.find').click(find);
+$(document).ready(init);
+
+function init(){
+  load();
+  $('.find').click(find);
+}
+
+
+
+var firebaseRef = new Firebase("https://yougle-maps.firebaseio.com/");
+var geoFire = new GeoFire(firebaseRef);
+
 var map;
 var poly;
 var coords;
@@ -23,77 +33,49 @@ function load(){
       map: map,
       title: 'Your Location'
     });
+    setTimeout(function() {
+      $('.locationNameForm').fadeIn(900);
+    }, 3000);
 
-    poly = new google.maps.Polyline({
-      strokeColor: '#000000',
-      strokeOpacity: 1.0,
-      strokeWeight: 3,
-      editable: true
-    });
-    poly.setMap(map);
-    map.addListener('click', addLatLng);
+    $('.saveLocation').click(saveLocation(location));
 
-    function addLatLng(event) {
-      var path = poly.getPath();
-
-      path.push(event.latLng);
-
-      var marker = new google.maps.Marker({
-        position: event.latLng,
-        title: '#' + path.getLength(),
-        map: map
-      });
-      coords = poly.getPath();
-      console.log(coords);
-    };
   });
 }
 
 function find(){
-  $('#map').empty();
-  var address = $('.addressInput').val().split(' ').join('+');
-  $.ajax({
-    method: 'GET', 
-    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyD4sce010CqoS9hM5xCEqOJ8U6sker2V60`
-  })
-  .done(function(res){
-    $('.addressInput').val(res.results[0].formatted_address)
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: res.results[0].geometry.location,
-      zoom: 17
-    });
-    var marker = new google.maps.Marker({
-      position: res.results[0].geometry.location,
-      map: map,
-      title: 'Found Location'
-    });
+  if ($('.addressInput').val()) {
+    $('#map').empty();
+    $('.locationNameForm').fadeOut(500);
 
-    poly = new google.maps.Polyline({
-      strokeColor: '#000000',
-      strokeOpacity: 1.0,
-      strokeWeight: 3,
-      editable: true
-    });
-    poly.setMap(map);
-    map.addListener('click', addLatLng);
 
-    function addLatLng(event) {
-      var path = poly.getPath();
-
-      path.push(event.latLng);
-
-      var marker = new google.maps.Marker({
-        position: event.latLng,
-        title: '#' + path.getLength(),
-        map: map
+    var address = $('.addressInput').val().split(' ').join('+');
+    $.ajax({
+      method: 'GET', 
+      url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyD4sce010CqoS9hM5xCEqOJ8U6sker2V60`
+    })
+    .done(function(res){
+      $('.addressInput').val(res.results[0].formatted_address)
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: res.results[0].geometry.location,
+        zoom: 17
       });
-      coords = poly.getPath();
-      console.log(coords);
-    };
-
-
-  });
+      var marker = new google.maps.Marker({
+        position: res.results[0].geometry.location,
+        map: map,
+        title: 'Found Location'
+      });
+      setTimeout(function() {
+        $('.locationNameForm').fadeIn(900);
+      }, 3000);
+    });
+  }
 }
+
+function saveLocation(location){
+  console.log("SAVE LOCATION", location);
+}
+
+
 
 
 

@@ -30,14 +30,32 @@ function load(){
       center: userLocation,
       zoom: 15
     });
+
     var marker = new google.maps.Marker({
       position: userLocation,
       map: map,
       title: 'Your Location'
     });
+
     setTimeout(function() {
       $('.locationNameForm').fadeIn(900);
     }, 3000);
+
+    var geoQuery = geoFire.query({
+      center: [userLocation.lat, userLocation.lng],
+      radius: 1.609 //kilometers (1 mile)
+    });
+
+    geoQuery.on("key_entered", function(key, location, distance) {
+      var lat = location.toString().split(',')[0];
+      var lng = location.toString().split(',')[1];
+      var marker = new google.maps.Marker({
+        position: {lat: Number(lat), lng: Number(lng)},
+        map: map,
+        title: key
+      });
+      console.log(key + " found at " + location + " (" + distance + " km away)");
+    });
 
     // google.maps.event.addListener(map, 'click', function(event) {
     //   userLocation = event.latLng
@@ -75,6 +93,7 @@ function find(){
         center: res.results[0].geometry.location,
         zoom: 17
       });
+      userLocation = res.results[0].geometry.location;
       var marker = new google.maps.Marker({
         position: res.results[0].geometry.location,
         map: map,
@@ -82,7 +101,7 @@ function find(){
       });
       setTimeout(function() {
         $('.locationNameForm').fadeIn(900);
-      }, 3000);
+      }, 2000);
     });
   }
 }

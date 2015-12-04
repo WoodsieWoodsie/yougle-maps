@@ -9,7 +9,9 @@ html(lang='en')
     div.container
       h1 Yougle Maps
       h4 Discover and save cool places that other people should know about!
-      h6 See saved locations within a one-mile radius of your current location. Be sure to allow location services for the app to work.
+      h5 See saved locations within a one-mile radius of your current location. Be sure to allow location services for the app to work.
+      h6 Please be considerate of the privacy of others; don't place markers on private residences.
+      hr
       label(for='address') Location: choose somewhere specific, like a certain coffee shop, not general, like an entire city.
       br
       input.addressInput(type='text')
@@ -17,12 +19,12 @@ html(lang='en')
       hr
 
       div.locationNameForm
-        label(for='loactionNameInput') Name and save this location: be descriptive but brief. 
+        label(for='locationNameInput') Name and save this location: be descriptive but brief. 
         br
         input.locationNameInput(type='text')
         button.saveLocation Save it!
         hr
-          
+
     #map
     
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCacoNA7dEzPT5P9B4W08Yvuieft3j6FwE')

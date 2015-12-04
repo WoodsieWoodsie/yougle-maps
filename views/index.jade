@@ -1,0 +1,19 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Yougle Directions
+    link(rel='stylesheet', href='styles.css')
+  body
+    label(for='address') Address: 
+    br
+    input.addressInput(type='text')
+    button.find Find it!
+    hr
+    #map
+    #right-panel
+      p Total Distance: 
+        span#total
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCacoNA7dEzPT5P9B4W08Yvuieft3j6FwE')
+    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='main.js')

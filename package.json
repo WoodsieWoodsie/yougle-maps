@@ -1,0 +1,29 @@
+{
+  "name": "yougle-maps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "postinstall": "bower i",
+    "setup": "npm i && bower i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WoodsieWoodsie/yougle-maps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WoodsieWoodsie/yougle-maps/issues"
+  },
+  "homepage": "https://github.com/WoodsieWoodsie/yougle-maps#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "mongoose": "^4.2.9",
+    "morgan": "^1.6.1"
+  }
+}

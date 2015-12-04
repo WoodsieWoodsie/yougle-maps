@@ -1,7 +1,31 @@
 'use strict';
+load();
 $('.find').click(find);
 var map;
 var poly;
+
+function load(){
+  $('#map').empty();
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    var location = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: location,
+      zoom: 10
+    });
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      title: 'Your Location'
+    });
+  });
+}
+
+
 
 function find(){
   $('#map').empty();
@@ -11,8 +35,7 @@ function find(){
     url: `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyD4sce010CqoS9hM5xCEqOJ8U6sker2V60`
   })
   .done(function(res){
-    console.log(res);
-    $('.address').val(res.results[0].formatted_address)
+    $('.addressInput').val(res.results[0].formatted_address)
     map = new google.maps.Map(document.getElementById('map'), {
       center: res.results[0].geometry.location,
       zoom: 17
@@ -22,6 +45,7 @@ function find(){
       map: map,
       title: 'Found Location'
     });
+
     poly = new google.maps.Polyline({
       strokeColor: '#000000',
       strokeOpacity: 1.0,
@@ -41,8 +65,11 @@ function find(){
         title: '#' + path.getLength(),
         map: map
       });
-
+      var coords = poly.getPath();
+      console.log(coords);
     };
+
+
   });
 }
 

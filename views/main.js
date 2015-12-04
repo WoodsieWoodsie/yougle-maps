@@ -4,6 +4,7 @@ $(document).ready(init);
 function init(){
   load();
   $('.find').click(find);
+  $('.recenter').click(load);
   $('.container').on('click', '.saveLocation', saveLocation);
 
 }
@@ -28,22 +29,23 @@ function load(){
     };
     map = new google.maps.Map(document.getElementById('map'), {
       center: userLocation,
-      zoom: 15
+      zoom: 12
     });
 
-    var marker = new google.maps.Marker({
+    var youMarker = new google.maps.Marker({
       position: userLocation,
       map: map,
+      icon: 'https://mt.google.com/vt/icon?psize=20&font=fonts/Roboto-Regular.ttf&color=ff330000&name=icons/spotlight/spotlight-waypoint-blue.png&ax=44&ay=48&scale=1&text=%E2%80%A2',
       title: 'Your Location'
     });
 
     setTimeout(function() {
       $('.locationNameForm').fadeIn(900);
-    }, 3000);
+    }, 2000);
 
     var geoQuery = geoFire.query({
       center: [userLocation.lat, userLocation.lng],
-      radius: 1.609 //kilometers (1 mile)
+      radius: 8.05 //kilometers (5 miles)
     });
 
     geoQuery.on("key_entered", function(key, location, distance) {

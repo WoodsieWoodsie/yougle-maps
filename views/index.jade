@@ -9,21 +9,27 @@ html(lang='en')
     div.container
       h1 Yougle Maps
       h4 Discover and save cool places that other people should know about!
-      h5 See saved locations within a one-mile radius of your current location. Be sure to allow location services for the app to work.
+      h5 See saved locations within a five-mile radius of your current location. Be sure to allow location services for the app to work.
       h6 Please be considerate of the privacy of others; don't place markers on private residences.
+      h6 Your current location: 
+      img(src="https://mt.google.com/vt/icon?psize=20&font=fonts/Roboto-Regular.ttf&color=ff330000&name=icons/spotlight/spotlight-waypoint-blue.png&ax=44&ay=48&scale=1&text=%E2%80%A2")
       hr
-      label(for='address') Location: choose somewhere specific, like a certain coffee shop, not general, like an entire city.
+      button.recenter Recenter
+      br
+      br  
+      label(for='address') Location: choose somewhere specific, like a certain address, not general, like an entire city.
       br
       input.addressInput(type='text')
       button.find Find it!
-      hr
+      br
+      br
 
       div.locationNameForm
         label(for='locationNameInput') Name and save this location: be descriptive but brief. 
         br
         input.locationNameInput(type='text')
         button.saveLocation Save it!
-        hr
+      hr
 
     #map
     

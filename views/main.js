@@ -3,29 +3,51 @@ load();
 $('.find').click(find);
 var map;
 var poly;
+var coords;
 
 function load(){
   $('#map').empty();
 
   navigator.geolocation.getCurrentPosition(function(position) {
     var location = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    };
       
     map = new google.maps.Map(document.getElementById('map'), {
       center: location,
-      zoom: 10
+      zoom: 15
     });
     var marker = new google.maps.Marker({
       position: location,
       map: map,
       title: 'Your Location'
     });
+
+    poly = new google.maps.Polyline({
+      strokeColor: '#000000',
+      strokeOpacity: 1.0,
+      strokeWeight: 3,
+      editable: true
+    });
+    poly.setMap(map);
+    map.addListener('click', addLatLng);
+
+    function addLatLng(event) {
+      var path = poly.getPath();
+
+      path.push(event.latLng);
+
+      var marker = new google.maps.Marker({
+        position: event.latLng,
+        title: '#' + path.getLength(),
+        map: map
+      });
+      coords = poly.getPath();
+      console.log(coords);
+    };
   });
 }
-
-
 
 function find(){
   $('#map').empty();
@@ -65,7 +87,7 @@ function find(){
         title: '#' + path.getLength(),
         map: map
       });
-      var coords = poly.getPath();
+      coords = poly.getPath();
       console.log(coords);
     };
 
